@@ -10,6 +10,13 @@ export const ourFileRouter = {
         return { "uploaded by": "muco" }
       }
     ),
+  multipleImageUploader: f({ image: { maxFileSize: "8MB", maxFileCount: 4 } })
+    .onUploadComplete(
+      async ({ metadata, file }) => {
+        console.log("file url: ", file.url);
+        return { "uploaded by": "muco" }
+      }
+    )
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
