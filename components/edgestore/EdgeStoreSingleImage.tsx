@@ -44,7 +44,7 @@ const ERROR_MESSAGES = {
 
 const EdgeStoreSingleImage = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    { dropzoneOptions, width, height, value, className, disabled, onChange },
+    { dropzoneOptions, value, className, disabled, onChange },
     ref
   ) => {
     const imageUrl = React.useMemo(() => {
@@ -124,11 +124,7 @@ const EdgeStoreSingleImage = React.forwardRef<HTMLInputElement, InputProps>(
       <div>
         <div
           {...getRootProps({
-            className: dropZoneClassName,
-            style: {
-              width,
-              height,
-            },
+            className: dropZoneClassName
           })}
         >
           {/* Main File Input */}
@@ -140,17 +136,14 @@ const EdgeStoreSingleImage = React.forwardRef<HTMLInputElement, InputProps>(
               className="h-full w-full rounded-md object-cover"
               src={imageUrl}
               alt={acceptedFiles[0]?.name}
-              width={width}
-              height={height}
+              width={300}
+              height={300}
             />
           ) : (
             // Upload Icon
             <div className="flex flex-col items-center justify-center text-xs text-gray-400">
               <UploadCloudIcon className="mb-2 h-7 w-7" />
               <div className="text-gray-400">drag & drop to upload</div>
-              <div className="mt-3">
-                <Button disabled={disabled}>select</Button>
-              </div>
             </div>
           )}
 
@@ -175,7 +168,8 @@ const EdgeStoreSingleImage = React.forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {/* Error Text */}
-        <div className="mt-1 text-xs text-red-500">{errorMessage}</div>
+        <div className="mt-1 text-xs text-red-500">{errorMessage}
+        </div>
       </div>
     );
   }

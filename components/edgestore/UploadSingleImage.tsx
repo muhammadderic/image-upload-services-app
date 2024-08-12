@@ -17,7 +17,7 @@ const UploadSingleImage = () => {
         <h2>Single Image Upload</h2>
       </div>
 
-      <div className="text-black flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         <EdgeStoreSingleImage
           width={200}
           height={200}
@@ -44,7 +44,7 @@ const UploadSingleImage = () => {
           ""
         ) : (
           <button
-            className="py-2.5 px-5 bg-red-500 rounded-sm hover:bg-red-400"
+            className="my-2 py-2.5 px-5 bg-red-500 rounded-sm hover:bg-red-400 text-white"
             onClick={async () => {
               if (file) {
                 const res = await edgestore.publicFiles.upload({
