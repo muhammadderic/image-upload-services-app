@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import Navbar from "@/components/Navbar";
 import "./globals.css";
+import { EdgeStoreProvider } from "@/utils/edgestore";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen`}>
-        <Navbar />
-        <main className="p-8">
-          {children}
-        </main>
+        <EdgeStoreProvider>
+          <Navbar />
+          <main className="p-8">
+            {children}
+          </main>
+        </EdgeStoreProvider>
       </body>
     </html>
   );

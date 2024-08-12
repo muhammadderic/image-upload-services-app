@@ -18,6 +18,10 @@ const Navbar = () => {
       name: "Clodinary",
       path: "/cloudinary",
     },
+    {
+      name: "EdgeStore",
+      path: "/edgestore",
+    }
   ]
 
   return (
