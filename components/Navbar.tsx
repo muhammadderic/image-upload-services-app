@@ -15,8 +15,8 @@ const Navbar = () => {
 
   const navLinks = [
     {
-      name: "Service",
-      path: "/",
+      name: "Clodinary",
+      path: "/cloudinary",
     },
   ]
 
