@@ -21,6 +21,10 @@ const Navbar = () => {
     {
       name: "EdgeStore",
       path: "/edgestore",
+    },
+    {
+      name: "UploadThing",
+      path: "/uploadthing",
     }
   ]
 
