@@ -6,8 +6,6 @@ import { useEdgeStore } from "@/utils/edgestore";
 
 const UploadMultipleImages = () => {
   const [fileStates, setFileStates] = useState<FileState[]>([]);
-  const [imageUrls, setImageUrls] = useState<String[]>([]);
-
   const { edgestore } = useEdgeStore();
 
   function updateFileProgress(key: string, progress: FileState["progress"]) {
@@ -40,7 +38,7 @@ const UploadMultipleImages = () => {
             await Promise.all(
               addedFiles.map(async (addedFileState) => {
                 try {
-                  const res = await edgestore.publicFiles.upload({
+                  await edgestore.publicFiles.upload({
                     file: addedFileState.file,
                     onProgressChange: async (progress: number) => {
                       updateFileProgress(addedFileState.key, progress);
@@ -54,8 +52,6 @@ const UploadMultipleImages = () => {
                       }
                     },
                   });
-                  console.log(res);
-                  setImageUrls((prevImages) => [...prevImages, res.url]);
                 } catch (err) {
                   updateFileProgress(addedFileState.key, "ERROR");
                 }

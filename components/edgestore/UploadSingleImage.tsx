@@ -5,11 +5,22 @@ import { EdgeStoreSingleImage } from "./EdgeStoreSingleImage";
 import { useEdgeStore } from "@/utils/edgestore";
 
 const UploadSingleImage = () => {
-  const [file, setFile] = useState<File>();
-  const [progress, setProgress] = useState(0);
-  const [imageUrl, setImageUrl] = useState("");
-
+  const [file, setFile] = useState<File | undefined>();
   const { edgestore } = useEdgeStore();
+
+  const handleUpload = async () => {
+    if (file) {
+      try {
+        await edgestore.publicFiles.upload({
+          file,
+        });
+      } catch (error) {
+        console.error("Upload failed:", error);
+      } finally {
+        setFile(undefined); // Clear the file after upload
+      }
+    }
+  };
 
   return (
     <section className="flex flex-col justify-center w-full max-w-4xl mx-auto my-8 p-4 bg-white border-2 border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:border-gray-70">
@@ -18,6 +29,7 @@ const UploadSingleImage = () => {
       </div>
 
       <div className="flex flex-col justify-center items-center">
+        {/* File input component */}
         <EdgeStoreSingleImage
           width={200}
           height={200}
@@ -28,46 +40,18 @@ const UploadSingleImage = () => {
           className="text-black-900"
         />
 
-        {progress > 0 && progress < 100 && (
-          <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-4">
-            <div
-              className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
-              style={{ width: `${progress}%` }}
-            >
-              {" "}
-              {progress}%
-            </div>
-          </div>
-        )}
-
-        {progress > 0 && file && imageUrl ? (
-          ""
-        ) : (
+        {/* Upload button (only shown when a file is selected) */}
+        {file && (
           <button
-            className="my-2 py-2.5 px-5 bg-red-500 rounded-sm hover:bg-red-400 text-white"
-            onClick={async () => {
-              if (file) {
-                const res = await edgestore.publicFiles.upload({
-                  file,
-                  onProgressChange: (progress) => {
-                    // you can use this to show a progress bar
-                    // console.log(progress);
-                    setProgress(progress);
-                  },
-                });
-                // you can run some server action or api here
-                // to add the necessary data to your database
-                console.log(res);
-                setImageUrl(res?.url);
-              }
-            }}
+            className="my-2 py-2.5 px-5 bg-red-500 rounded-sm hover:bg-red-400 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={handleUpload}
           >
             Upload
           </button>
         )}
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default UploadSingleImage

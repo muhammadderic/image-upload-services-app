@@ -18,14 +18,14 @@ const EdgeStore = () => {
 
         <div className="flex gap-2">
           <button
-            className="px-4 py-2 rounded-md bg-blue-500 text-white"
+            className={`px-4 py-2 rounded-md ${showSingleUploadPage === 'single' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}
             onClick={() => handleShowPage('single')}
           >
             Single
           </button>
 
           <button
-            className="px-4 py-2 rounded-md bg-blue-500 text-white"
+            className={`px-4 py-2 rounded-md ${showSingleUploadPage === 'single' ? 'bg-white text-blue-500' : 'bg-blue-500 text-white'}`}
             onClick={() => handleShowPage('multiple')}
           >
             Multiple
